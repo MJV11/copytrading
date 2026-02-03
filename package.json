@@ -1,0 +1,46 @@
+{
+  "name": "polymarket-copytrading-simulator",
+  "version": "1.0.0",
+  "description": "Simulate copytrading a Polymarket trader with realistic slippage",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "vitest",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "keywords": [
+    "polymarket",
+    "trading",
+    "simulation",
+    "copytrading"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@polymarket/clob-client": "^5.2.1",
+    "axios": "^1.6.5",
+    "better-sqlite3": "^9.3.0",
+    "date-fns": "^3.3.1",
+    "dotenv": "^16.4.0",
+    "ethers": "^6.11.0",
+    "graphql": "^16.12.0",
+    "graphql-request": "^7.4.0",
+    "winston": "^3.11.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.8",
+    "@types/node": "^20.11.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.4",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  }
+}
