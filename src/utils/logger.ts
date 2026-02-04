@@ -15,6 +15,9 @@ const logFormat = printf(({ level, message, timestamp, ...metadata }) => {
   return msg;
 });
 
+// JSON format for file storage (for dashboard logs panel)
+const jsonFormat = winston.format.json();
+
 // Create logger instance
 export const logger = winston.createLogger({
   level: config.logLevel,
@@ -31,13 +34,23 @@ export const logger = winston.createLogger({
         logFormat
       ),
     }),
-    // File output
+    // File output (human readable)
     new winston.transports.File({
       filename: 'logs/error.log',
       level: 'error',
     }),
     new winston.transports.File({
       filename: 'logs/combined.log',
+    }),
+    // JSON file for dashboard (easy parsing)
+    new winston.transports.File({
+      filename: 'logs/trading.log',
+      format: combine(
+        timestamp(),
+        winston.format.json()
+      ),
+      maxsize: 5242880, // 5MB
+      maxFiles: 2,
     }),
   ],
 });

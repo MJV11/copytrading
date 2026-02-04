@@ -104,9 +104,9 @@ export class Repository {
     const stmt = this.db.prepare(`
       INSERT OR REPLACE INTO positions (
         id, market_id, market_question, outcome_id, shares, average_entry_price,
-        total_invested, current_price, unrealized_pnl, realized_pnl, is_open,
+        average_exit_price, total_invested, current_price, unrealized_pnl, realized_pnl, is_open,
         opened_at, closed_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     stmt.run(
@@ -116,6 +116,7 @@ export class Repository {
       position.outcomeId,
       position.shares,
       position.averageEntryPrice,
+      position.averageExitPrice || null,
       position.totalInvested,
       position.currentPrice,
       position.unrealizedPnL,
@@ -153,6 +154,7 @@ export class Repository {
       outcomeId: row.outcome_id,
       shares: row.shares,
       averageEntryPrice: row.average_entry_price,
+      averageExitPrice: row.average_exit_price || undefined,
       totalInvested: row.total_invested,
       currentPrice: row.current_price,
       unrealizedPnL: row.unrealized_pnl,

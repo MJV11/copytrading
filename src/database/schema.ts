@@ -63,6 +63,7 @@ function createTables(db: Database.Database): void {
       outcome_id TEXT NOT NULL,
       shares REAL NOT NULL,
       average_entry_price REAL NOT NULL,
+      average_exit_price REAL,
       total_invested REAL NOT NULL,
       current_price REAL NOT NULL,
       unrealized_pnl REAL NOT NULL,

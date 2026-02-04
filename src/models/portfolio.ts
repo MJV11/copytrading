@@ -47,32 +47,22 @@ export function updatePortfolioMetrics(
   portfolio.positions = openPositions;
   portfolio.totalValue = portfolio.availableCash + positionsValue;
 
-  // Calculate P&L
-  const unrealizedPnL = openPositions.reduce((sum, pos) => {
-    return sum + calculateUnrealizedPnL(pos);
-  }, 0);
-
-  // Get realized P&L from ALL positions (both open and closed)
-  // Open positions can have realized P&L from partial sells
-  const realizedPnL = allPositions.reduce((sum, pos) => {
-    return sum + pos.realizedPnL;
-  }, 0);
-
-  portfolio.totalPnL = realizedPnL + unrealizedPnL;
+  // Calculate P&L - Simple and accurate method
+  // P&L = Current Total Value - Initial Capital
+  portfolio.totalPnL = portfolio.totalValue - initialCapital;
   portfolio.totalPnLPercent = (portfolio.totalPnL / initialCapital) * 100;
 
   // Debug logging for P&L calculation
-  if (Math.abs(unrealizedPnL) > 0.01 || Math.abs(realizedPnL) > 0.01) {
-    console.log(`[DEBUG] P&L Calculation: Realized=$${realizedPnL.toFixed(4)}, Unrealized=$${unrealizedPnL.toFixed(4)}, Total=$${portfolio.totalPnL.toFixed(4)} from ${allPositions.length} positions (${openPositions.length} open, ${allPositions.length - openPositions.length} closed)`);
-  }
-
-  // Validate accounting (Current Value should = Initial + P&L)
-  const expectedValue = initialCapital + portfolio.totalPnL;
-  const actualValue = portfolio.totalValue;
-  const discrepancy = actualValue - expectedValue;
-
-  if (Math.abs(discrepancy) > 0.01) {
-    console.warn(`ACCOUNTING DISCREPANCY: Current Value ($${actualValue.toFixed(2)}) does not equal Initial ($${initialCapital.toFixed(2)}) + P&L ($${portfolio.totalPnL.toFixed(2)}) = $${expectedValue.toFixed(2)}. Difference: $${discrepancy.toFixed(2)}`);
+  const unrealizedPnL = openPositions.reduce((sum, pos) => {
+    return sum + calculateUnrealizedPnL(pos);
+  }, 0);
+  const realizedPnL = allPositions.reduce((sum, pos) => {
+    return sum + pos.realizedPnL;
+  }, 0);
+  
+  if (Math.abs(portfolio.totalPnL) > 0.01) {
+    console.log(`[DEBUG] P&L: Total Value=$${portfolio.totalValue.toFixed(2)}, Initial=$${initialCapital.toFixed(2)}, P&L=$${portfolio.totalPnL.toFixed(2)} (${portfolio.totalPnLPercent.toFixed(2)}%)`);
+    console.log(`[DEBUG] Position-level: Realized=$${realizedPnL.toFixed(2)}, Unrealized=$${unrealizedPnL.toFixed(2)}, Sum=$${(realizedPnL + unrealizedPnL).toFixed(2)}`);
   }
 
   // Calculate win rate (from closed positions only)

@@ -7,10 +7,16 @@ pnpm-lock.yaml
 # Build output
 dist/
 build/
+.next/
+out/
 
 # Environment
 .env
 .env.local
+
+# Trading state
+trading-config.json
+.trading.pid
 
 # Data
 data/
@@ -19,8 +25,9 @@ data/
 *.db-shm
 *.db-wal
 
-# Logs
-logs/
+# Logs (except .gitkeep)
+logs/*
+!logs/.gitkeep
 *.log
 npm-debug.log*
 

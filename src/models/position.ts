@@ -5,6 +5,7 @@ export interface Position {
   outcomeId: string;
   shares: number;
   averageEntryPrice: number;
+  averageExitPrice?: number;  // For closed positions
   totalInvested: number;
   currentPrice: number;
   unrealizedPnL: number;

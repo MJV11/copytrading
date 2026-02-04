@@ -332,10 +332,13 @@ export class TradeExecutor {
       if (position.shares <= 0.001) {
         position.isOpen = false;
         position.closedAt = new Date();
+        // Store exit price before zeroing shares
+        position.averageExitPrice = trade.price;
         position.shares = 0;
 
         log.position('Position closed', {
           market: position.marketQuestion,
+          averageExitPrice: position.averageExitPrice.toFixed(4),
           finalRealizedPnL: position.realizedPnL.toFixed(2),
         });
       }

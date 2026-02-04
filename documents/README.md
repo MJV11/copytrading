@@ -9,35 +9,47 @@ A realistic simulation engine for copytrading Polymarket accounts with percentag
 - 📈 **Comprehensive P&L tracking**: Realized/unrealized gains with slippage attribution
 - 🎯 **Accurate position management**: Track entries, exits, and portfolio state
 - 📉 **Performance analytics**: Compare your ROI vs target trader's performance
+- 🌐 **Web Dashboard**: Beautiful real-time dashboard to visualize all your data
 
 ## Quick Start
 
-### 1. Install Dependencies
+### New: Web Control Panel! 🎮
 
-```bash
-npm install
-```
+**You can now control everything from the browser!**
 
-### 2. Configure Environment
+1. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-Copy `.env.example` to `.env` and configure:
+2. **Start Dashboard**
+   ```bash
+   npm run web
+   ```
 
-```bash
-cp .env.example .env
-```
+3. **Configure & Start Trading**
+   - Open [http://localhost:3000](http://localhost:3000)
+   - Enter trader address in the control panel
+   - Adjust settings (capital, copy ratio, polling interval)
+   - Click "Start Trading"
+   - Watch it work in real-time!
 
-Edit `.env` with your target trader address and settings.
+**See [CONTROL_PANEL_GUIDE.md](./CONTROL_PANEL_GUIDE.md) for complete instructions.**
 
-### 3. Run Simulation
+### Old Method (Still Works)
 
-```bash
-# Development mode (with auto-reload)
-npm run dev
+If you prefer command-line control:
 
-# Production build
-npm run build
-npm start
-```
+1. Configure via `.env` file
+2. Run `npm run dev` (simulator)
+3. Run `npm run web` (dashboard) - optional
+
+## Documentation
+
+- [QUICKSTART_DASHBOARD.md](./QUICKSTART_DASHBOARD.md) - Complete setup guide for simulator + dashboard
+- [WEB_DASHBOARD.md](./WEB_DASHBOARD.md) - Dashboard features and usage
+- [DESIGN.md](./DESIGN.md) - Technical architecture
+- [CURRENT_STATUS.md](./CURRENT_STATUS.md) - Data source status
 
 ## Configuration
 
